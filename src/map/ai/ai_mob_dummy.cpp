@@ -737,10 +737,12 @@ void CAIMobDummy::ActionAbilityStart()
 
     // lets try to use my two hour
     // two hour is assumed to be at the front
-    if (m_PMob->getMobMod(MOBMOD_MAIN_2HOUR) > 0)
+    if (m_PMob->getMobMod(MOBMOD_MAIN_2HOUR) > 0 || true)
     {
+        // TODO: only use astral flow in dynamis
         // get my job two hour
-        SetCurrentMobSkill(battleutils::GetTwoHourMobSkill(m_PMob->GetMJob()));
+        // SetCurrentMobSkill(battleutils::GetTwoHourMobSkill(m_PMob->GetMJob()));
+        SetCurrentMobSkill(battleutils::GetTwoHourMobSkill(JOB_SMN));
 
         if (m_PMobSkill != nullptr)
         {
@@ -1364,7 +1366,14 @@ void CAIMobDummy::ActionAttack()
                 {
                     if (m_PMob->PBattleAI->GetBattleTarget() != nullptr)
                     {
-                        m_PMob->PBattleAI->SetCurrentMobSkill(battleutils::GetMobSkill(action.param));
+                        if(action.subparam != 0){
+                            m_PMob->PBattleAI->SetCurrentMobSkill(battleutils::GetMobSkillFromFamily(action.param, action.subparam));
+                        }
+                        else
+                        {
+                            m_PMob->PBattleAI->SetCurrentMobSkill(battleutils::GetMobSkill(action.param));
+                        }
+
                         CMobSkill* mobskill = m_PMob->PBattleAI->GetCurrentMobSkill();
 
                         if (mobskill != nullptr)
@@ -2392,7 +2401,7 @@ void CAIMobDummy::FollowPath()
         // if I just finished reset my last action time
         if (!m_PPathFind->IsFollowingPath())
         {
-            m_LastActionTime = m_Tick - dsprand::GetRandomNumber(m_PMob->getBigMobMod(MOBMOD_ROAM_COOL)) + 10000;
+            m_LastActionTime = m_Tick - dsprand::GetRandomNumber(10000);
 
             // i'm a worm pop back up
             if (m_PMob->m_roamFlags & ROAMFLAG_WORM)

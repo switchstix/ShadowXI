@@ -413,6 +413,22 @@ namespace battleutils
         }
     }
 
+    CMobSkill* GetMobSkillFromFamily(uint16 SkillID, uint16 FamilyID)
+    {
+      std::vector<CMobSkill*> family = g_PMobFamilySkills[FamilyID];
+      ShowDebug("family %d size: %d\n", FamilyID, family.size());
+      for ( auto i = family.begin(); i != family.end(); i++)
+      {
+        ShowDebug("Id %d\n", (*i));
+        if((*i)->getID() == SkillID)
+        {
+          return (*i);
+        }
+      }
+
+      return nullptr;
+    }
+
     /************************************************************************
     *                                                                       *
     *  Get Mob Skills by family id                                          *
@@ -4506,7 +4522,7 @@ namespace battleutils
             case JOB_SAM: id = 474; break;
             case JOB_NIN: id = 475; break;
             case JOB_DRG: id = 476; break;
-                // case JOB_SMN: id = 478; break;  // alt 2000
+            case JOB_SMN: id = 478; break;  // alt 2000
                 // case JOB_BLU: id = 1933; break; // alt 2001
                 // case JOB_COR: id = 1934; break; // alt 2002
                 // case JOB_PUP: id = 1935; break; // alt 2003

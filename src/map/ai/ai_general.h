@@ -89,6 +89,7 @@ struct quAction_t
 {
     ACTIONTYPE action;
     uint16 param;
+    uint16 subparam;
     CBattleEntity* target;
 };
 

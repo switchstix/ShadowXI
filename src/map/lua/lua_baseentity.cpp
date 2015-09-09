@@ -8241,7 +8241,12 @@ inline int32 CLuaBaseEntity::useMobAbility(lua_State* L)
 
     quAction_t action;
     action.action = ACTION_MOBABILITY_START;
+
+    // skill id
     action.param = (lua_isnumber(L,1) ? lua_tointeger(L,1) : 0);
+
+    // family id
+    action.subparam = (lua_isnumber(L,2) ? lua_tointeger(L,2) : 0);
     action.target = nullptr;
     ((CMobEntity*)m_PBaseEntity)->PBattleAI->m_actionQueue.push(action);
 
