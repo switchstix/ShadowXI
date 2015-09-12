@@ -572,8 +572,6 @@ end
 
 -- Returns resistance value from given magic hit rate (p)
 function getMagicResist(magicHitRate)
-    --cap accuracy
-    magicHitRate = utils.clamp(magicHitRate, 5, 95);
 
     local p = magicHitRate / 100;
     local resist = 1;
